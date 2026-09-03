@@ -15,6 +15,7 @@ The platform supports different types of learning materials, including:
 ✨ Features
 
 👨‍🏫 For Instructors
+
 Create and manage courses
 Upload and share learning materials
 Add videos and PDF resources
@@ -23,6 +24,7 @@ Monitor student activity
 Track student progress and performance
 
 👨‍🎓 For Students
+
 Browse and access course content
 Watch educational videos
 Read PDFs and other learning materials
