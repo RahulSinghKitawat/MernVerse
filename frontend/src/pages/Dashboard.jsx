@@ -22,16 +22,16 @@ const Dashboard = () => {
 
         if (user.role === 'Instructor' || user.role === 'Admin') {
           // Fetch courses created by this instructor
-          const res = await axios.get(`\${import.meta.env.VITE_API_URL || `\${import.meta.env.VITE_API_URL || "${import.meta.env.VITE_API_URL || "http://localhost:5000"}"}`}/api/courses`, config);
+          const res = await axios.get(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/courses`, config);
           // Filter by instructor locally (or ideally in backend)
           const instructorCourses = res.data.data.filter(c => c.instructor?._id === user.id || c.instructor === user.id);
           setCourses(instructorCourses);
 
-          const statsRes = await axios.get(`\${import.meta.env.VITE_API_URL || `\${import.meta.env.VITE_API_URL || "${import.meta.env.VITE_API_URL || "http://localhost:5000"}"}`}/api/courses/instructor/stats`, config);
+          const statsRes = await axios.get(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/courses/instructor/stats`, config);
           setStats(statsRes.data.data);
         } else {
           // Fetch student enrollments
-          const res = await axios.get(`\${import.meta.env.VITE_API_URL || `\${import.meta.env.VITE_API_URL || "${import.meta.env.VITE_API_URL || "http://localhost:5000"}"}`}/api/progress/my-enrollments`, config);
+          const res = await axios.get(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/progress/my-enrollments`, config);
           setEnrollments(res.data.data);
         }
       } catch (err) {

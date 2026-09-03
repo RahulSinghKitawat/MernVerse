@@ -120,7 +120,7 @@ const EditCourse = () => {
     formDataUpload.append('file', file);
     try {
       const config = { headers: { Authorization: `Bearer ${token}` } };
-      const res = await axios.post(`\${import.meta.env.VITE_API_URL || `\${import.meta.env.VITE_API_URL || "${import.meta.env.VITE_API_URL || "http://localhost:5000"}"}`}/api/upload`, formDataUpload, config);
+      const res = await axios.post(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/upload`, formDataUpload, config);
       handleResourceChange(moduleIndex, resourceIndex, 'fileUrl', res.data);
     } catch (err) {
       alert('Error uploading file');
@@ -133,7 +133,7 @@ const EditCourse = () => {
     formDataUpload.append('file', file);
     try {
       const config = { headers: { Authorization: `Bearer ${token}` } };
-      const res = await axios.post(`\${import.meta.env.VITE_API_URL || `\${import.meta.env.VITE_API_URL || "${import.meta.env.VITE_API_URL || "http://localhost:5000"}"}`}/api/upload`, formDataUpload, config);
+      const res = await axios.post(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/upload`, formDataUpload, config);
       setFormData(prev => ({ ...prev, introVideoUrl: res.data }));
     } catch (err) {
       alert('Error uploading file');

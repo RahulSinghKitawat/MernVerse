@@ -78,7 +78,7 @@ const CourseDetail = () => {
       const checkEnrollment = async () => {
         try {
           const config = { headers: { Authorization: `Bearer ${token}` } };
-          const res = await axios.get(`\${import.meta.env.VITE_API_URL || `\${import.meta.env.VITE_API_URL || "${import.meta.env.VITE_API_URL || "http://localhost:5000"}"}`}/api/progress/my-enrollments`, config);
+          const res = await axios.get(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/progress/my-enrollments`, config);
           const enrolled = res.data.data.find(e => e.course?._id === id || e.course === id);
           if (enrolled) {
             setIsEnrolled(true);
