@@ -64,7 +64,7 @@ const CreateCourse = () => {
     formDataUpload.append('file', file);
     try {
       const config = { headers: { Authorization: `Bearer ${token}` } };
-      const res = await axios.post(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/upload`, formDataUpload, config);
+      const res = await axios.post(`${import.meta.env.VITE_API_URL || "https://mernverse-1.onrender.com"}/api/upload`, formDataUpload, config);
       handleResourceChange(moduleIndex, resourceIndex, 'fileUrl', res.data);
     } catch (err) {
       alert('Error uploading file');
@@ -77,7 +77,7 @@ const CreateCourse = () => {
     formDataUpload.append('file', file);
     try {
       const config = { headers: { Authorization: `Bearer ${token}` } };
-      const res = await axios.post(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/upload`, formDataUpload, config);
+      const res = await axios.post(`${import.meta.env.VITE_API_URL || "https://mernverse-1.onrender.com"}/api/upload`, formDataUpload, config);
       setFormData(prev => ({ ...prev, introVideoUrl: res.data }));
     } catch (err) {
       alert('Error uploading file');
@@ -142,13 +142,13 @@ const CreateCourse = () => {
         modules: modules.filter(m => m.title !== '')
       };
 
-      const res = await axios.post(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/courses`, courseData, config);
+      const res = await axios.post(`${import.meta.env.VITE_API_URL || "https://mernverse-1.onrender.com"}/api/courses`, courseData, config);
       const courseId = res.data.data._id;
 
       // Save quizzes sequentially
       for (const quiz of quizzes) {
         if (quiz.title && quiz.questions.length > 0) {
-          await axios.post(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/courses/${courseId}/quizzes`, quiz, config);
+          await axios.post(`${import.meta.env.VITE_API_URL || "https://mernverse-1.onrender.com"}/api/courses/${courseId}/quizzes`, quiz, config);
         }
       }
 

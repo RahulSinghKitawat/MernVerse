@@ -10,7 +10,7 @@ const CourseList = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const res = await axios.get(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/courses`);
+        const res = await axios.get(`${import.meta.env.VITE_API_URL || "https://mernverse-1.onrender.com"}/api/courses`);
         setCourses(res.data.data);
       } catch (err) {
         console.error(err);

@@ -20,7 +20,7 @@ const TakeQuiz = () => {
     const fetchQuiz = async () => {
       try {
         const config = { headers: { Authorization: `Bearer ${token}` } };
-        const res = await axios.get(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/quizzes/${quizId}`, config);
+        const res = await axios.get(`${import.meta.env.VITE_API_URL || "https://mernverse-1.onrender.com"}/api/quizzes/${quizId}`, config);
         setQuiz(res.data.data);
         setAnswers(new Array(res.data.data.questions.length).fill(null));
       } catch (err) {
@@ -56,7 +56,7 @@ const TakeQuiz = () => {
       };
       
       const res = await axios.post(
-        `${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/quizzes/${quizId}/submit`,
+        `${import.meta.env.VITE_API_URL || "https://mernverse-1.onrender.com"}/api/quizzes/${quizId}/submit`,
         { answers },
         config
       );
