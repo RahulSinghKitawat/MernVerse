@@ -16,8 +16,8 @@ const CourseStudents = () => {
       try {
         const config = { headers: { Authorization: `Bearer ${token}` } };
         const [courseRes, studentsRes] = await Promise.all([
-          axios.get(`http://localhost:5000/api/courses/${id}`, config),
-          axios.get(`http://localhost:5000/api/courses/${id}/students`, config)
+          axios.get(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/courses/${id}`, config),
+          axios.get(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/courses/${id}/students`, config)
         ]);
         
         setCourse(courseRes.data.data);

@@ -40,7 +40,7 @@ const CourseDetail = () => {
       if (completedResources.includes(resourceId)) return;
       try {
         const config = { headers: { Authorization: `Bearer ${token}` } };
-        await axios.post(`http://localhost:5000/api/progress/${id}/resource/${resourceId}/complete`, {}, config);
+        await axios.post(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/progress/${id}/resource/${resourceId}/complete`, {}, config);
         setCompletedResources(prev => [...prev, resourceId]);
       } catch (err) {
         console.error('Error updating progress:', err);
@@ -51,7 +51,7 @@ const CourseDetail = () => {
   useEffect(() => {
     const fetchCourse = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/courses/${id}`);
+        const res = await axios.get(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/courses/${id}`);
         setCourse(res.data.data);
       } catch (err) {
         console.error(err);
@@ -62,7 +62,7 @@ const CourseDetail = () => {
 
     const fetchQuizzes = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/courses/${id}/quizzes`);
+        const res = await axios.get(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/courses/${id}/quizzes`);
         setQuizzes(res.data.data);
       } catch (err) {
         console.error(err);
@@ -78,7 +78,7 @@ const CourseDetail = () => {
       const checkEnrollment = async () => {
         try {
           const config = { headers: { Authorization: `Bearer ${token}` } };
-          const res = await axios.get('http://localhost:5000/api/progress/my-enrollments', config);
+          const res = await axios.get(`\${import.meta.env.VITE_API_URL || `\${import.meta.env.VITE_API_URL || "${import.meta.env.VITE_API_URL || "http://localhost:5000"}"}`}/api/progress/my-enrollments`, config);
           const enrolled = res.data.data.find(e => e.course?._id === id || e.course === id);
           if (enrolled) {
             setIsEnrolled(true);
@@ -105,7 +105,7 @@ const CourseDetail = () => {
           Authorization: `Bearer ${token}`
         }
       };
-      await axios.post(`http://localhost:5000/api/courses/${id}/enroll`, {}, config);
+      await axios.post(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/courses/${id}/enroll`, {}, config);
       setIsEnrolled(true);
       alert('Successfully enrolled!');
     } catch (err) {
@@ -211,7 +211,7 @@ const CourseDetail = () => {
                     ></iframe>
                   ) : (
                     <ReactPlayer 
-                      url={course.introVideoType === 'local-video' ? `http://localhost:5000${course.introVideoUrl}` : course.introVideoUrl}
+                      url={course.introVideoType === 'local-video' ? `${import.meta.env.VITE_API_URL || "http://localhost:5000"}${course.introVideoUrl}` : course.introVideoUrl}
                       width="100%"
                       height="100%"
                       controls={true}
@@ -271,7 +271,7 @@ const CourseDetail = () => {
                           ></iframe>
                         ) : (
                           <ReactPlayer 
-                            url={activeResource.type === 'local-video' ? `http://localhost:5000${activeResource.fileUrl}` : activeResource.videoUrl}
+                            url={activeResource.type === 'local-video' ? `${import.meta.env.VITE_API_URL || "http://localhost:5000"}${activeResource.fileUrl}` : activeResource.videoUrl}
                             width="100%"
                             height={isFullscreen ? "100%" : "500px"}
                             controls={true}
@@ -286,7 +286,7 @@ const CourseDetail = () => {
                     ) : activeResource.type === 'pdf' ? (
                       activeResource.fileUrl ? (
                         <iframe 
-                          src={`http://localhost:5000${activeResource.fileUrl}`} 
+                          src={`${import.meta.env.VITE_API_URL || "http://localhost:5000"}${activeResource.fileUrl}`} 
                           className={`w-full h-full ${!isFullscreen ? 'min-h-[500px]' : ''}`} 
                           title="PDF Document"
                         />
@@ -298,7 +298,7 @@ const CourseDetail = () => {
                         <div className="flex flex-col items-center justify-center h-64 text-gray-400 bg-gray-900 w-full">
                           <BookOpen className="h-16 w-16 mb-4" />
                           <a 
-                            href={`http://localhost:5000${activeResource.fileUrl}`} 
+                            href={`${import.meta.env.VITE_API_URL || "http://localhost:5000"}${activeResource.fileUrl}`} 
                             target="_blank" 
                             rel="noreferrer"
                             className="bg-primary-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-primary-500"

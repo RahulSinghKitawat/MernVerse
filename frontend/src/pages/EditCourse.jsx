@@ -26,7 +26,7 @@ const EditCourse = () => {
   useEffect(() => {
     const fetchCourseAndQuizzes = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/courses/${id}`);
+        const res = await axios.get(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/courses/${id}`);
         const course = res.data.data;
         
         if (course.instructor?._id !== user.id && user.role !== 'Admin') {
@@ -59,7 +59,7 @@ const EditCourse = () => {
           setModules([{ title: '', description: '', resources: [{ title: '', type: 'video-link', videoUrl: '', fileUrl: '' }] }]);
         }
 
-        const quizRes = await axios.get(`http://localhost:5000/api/courses/${id}/quizzes`);
+        const quizRes = await axios.get(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/courses/${id}/quizzes`);
         setQuizzes(quizRes.data.data);
 
       } catch (err) {
@@ -120,7 +120,7 @@ const EditCourse = () => {
     formDataUpload.append('file', file);
     try {
       const config = { headers: { Authorization: `Bearer ${token}` } };
-      const res = await axios.post('http://localhost:5000/api/upload', formDataUpload, config);
+      const res = await axios.post(`\${import.meta.env.VITE_API_URL || `\${import.meta.env.VITE_API_URL || "${import.meta.env.VITE_API_URL || "http://localhost:5000"}"}`}/api/upload`, formDataUpload, config);
       handleResourceChange(moduleIndex, resourceIndex, 'fileUrl', res.data);
     } catch (err) {
       alert('Error uploading file');
@@ -133,7 +133,7 @@ const EditCourse = () => {
     formDataUpload.append('file', file);
     try {
       const config = { headers: { Authorization: `Bearer ${token}` } };
-      const res = await axios.post('http://localhost:5000/api/upload', formDataUpload, config);
+      const res = await axios.post(`\${import.meta.env.VITE_API_URL || `\${import.meta.env.VITE_API_URL || "${import.meta.env.VITE_API_URL || "http://localhost:5000"}"}`}/api/upload`, formDataUpload, config);
       setFormData(prev => ({ ...prev, introVideoUrl: res.data }));
     } catch (err) {
       alert('Error uploading file');
@@ -150,7 +150,7 @@ const EditCourse = () => {
     if (quiz._id) {
       if (!window.confirm('Are you sure you want to delete this quiz?')) return;
       try {
-        await axios.delete(`http://localhost:5000/api/quizzes/${quiz._id}`, { headers: { Authorization: `Bearer ${token}` } });
+        await axios.delete(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/quizzes/${quiz._id}`, { headers: { Authorization: `Bearer ${token}` } });
       } catch (err) { 
         alert('Failed to delete quiz'); 
         return; 
@@ -208,15 +208,15 @@ const EditCourse = () => {
         modules: modules.filter(m => m.title !== '')
       };
 
-      await axios.put(`http://localhost:5000/api/courses/${id}`, courseData, config);
+      await axios.put(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/courses/${id}`, courseData, config);
 
       // Save quizzes sequentially
       for (const quiz of quizzes) {
         if (quiz.title && quiz.questions.length > 0) {
           if (quiz._id) {
-            await axios.put(`http://localhost:5000/api/quizzes/${quiz._id}`, quiz, config);
+            await axios.put(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/quizzes/${quiz._id}`, quiz, config);
           } else {
-            await axios.post(`http://localhost:5000/api/courses/${id}/quizzes`, quiz, config);
+            await axios.post(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/courses/${id}/quizzes`, quiz, config);
           }
         }
       }
@@ -237,7 +237,7 @@ const EditCourse = () => {
     setDeleting(true);
     try {
       const config = { headers: { Authorization: `Bearer ${token}` } };
-      await axios.delete(`http://localhost:5000/api/courses/${id}`, config);
+      await axios.delete(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/courses/${id}`, config);
       navigate('/dashboard');
     } catch (err) {
       alert(err.response?.data?.error || 'Failed to delete course');
