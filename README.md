@@ -1,7 +1,7 @@
 MernVerse<br>
 Mernverse-lms is a Learning Management System designed to make online learning easier for both students and instructors.
 
-🌐 Link : https://lms-xi-pink.vercel.app
+🌐 Link : https://mernverse-lms.vercel.app
 
 📚 About
 LMS-XI provides a platform where instructors can create and manage learning content, while students can access educational resources, take quizzes, and track their learning progress.
